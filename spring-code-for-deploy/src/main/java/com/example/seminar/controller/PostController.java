@@ -4,7 +4,7 @@ package com.example.seminar.controller;
 import com.example.seminar.dto.request.post.PostCreateRequest;
 import com.example.seminar.dto.request.post.PostUpdateRequest;
 import com.example.seminar.dto.response.post.PostGetResponse;
-import com.example.seminar.service.PostService;
+import com.example.seminar.service.post.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

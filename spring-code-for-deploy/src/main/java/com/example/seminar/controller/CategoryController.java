@@ -1,9 +1,8 @@
 package com.example.seminar.controller;
 
 
-import com.example.seminar.domain.CategoryId;
 import com.example.seminar.dto.response.category.CategoryResponse;
-import com.example.seminar.service.CategoryService;
+import com.example.seminar.service.category.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

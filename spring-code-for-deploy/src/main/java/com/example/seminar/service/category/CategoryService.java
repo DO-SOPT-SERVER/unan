@@ -1,4 +1,4 @@
-package com.example.seminar.service;
+package com.example.seminar.service.category;
 
 
 import com.example.seminar.common.exception.BusinessException;
