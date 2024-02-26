@@ -37,10 +37,10 @@ public class MemberService {
     @Transactional
     public String create(final MemberCreateRequest request) {
          final Member member =  memberSaver.save(Member.builder()
-                 .name(request.getName())
-                 .nickname(request.getNickname())
-                 .age(request.getAge())
-                 .sopt(request.getSopt())
+                 .name(request.name())
+                 .nickname(request.nickname())
+                 .age(request.age())
+                 .sopt(request.sopt())
                  .build());
          return member.getId().toString();
     }
@@ -49,14 +49,13 @@ public class MemberService {
     public void updateSOPT(final long memberId, final MemberProfileUpdateRequest request) {
         final Member member = memberRetriever.findById(memberId);
         final SOPT sopt = SOPT.builder()
-                .generation(request.getGeneration())
                 .part(request.getPart())
                 .build();
         memberUpdater.updateSopt(member, sopt);
     }
 
     @Transactional
-    public void deleteMember(Long memberId) {
+    public void deleteMember(final long memberId) {
         Member member = memberRetriever.findById(memberId);
         memberRemover.remove(member);
     }

@@ -34,20 +34,20 @@ public class PostService {
         Member member = memberJpaRepository.findByIdOrThrow(memberId);
         Post post = postJpaRepository.save(
                 Post.builder()
-                .member(member)
-                .title(request.title())
-                .content(request.content()).build());
+                        .member(member)
+                        .title(request.title())
+                        .content(request.content()).build());
         return post.getId().toString();
     }
 
     @Transactional
-    public void editContent(Long postId, PostUpdateRequest request) {
+    public void editContent(final Long postId, final PostUpdateRequest request) {
         Post post = postJpaRepository.findById(postId)
                 .orElseThrow(() -> new EntityNotFoundException("해당하는 게시글이 없습니다."));
         post.updateContent(request.content());
     }
 
-    public List<PostGetResponse> getPosts(Long memberId) {
+    public List<PostGetResponse> getPosts(final long memberId) {
         return postJpaRepository.findAllByMemberId(memberId)
                 .stream()
                 .map(post -> PostGetResponse.of(post, getCategoryByPost(post)))
@@ -61,12 +61,13 @@ public class PostService {
 
     @Transactional
     public void deleteById(Long postId) {
-        Post post = postJpaRepository.findById(postId).orElseThrow(() -> new EntityNotFoundException("해당하는 게시글이 없습니다."));
+        Post post = postJpaRepository
+                .findById(postId)
+                .orElseThrow(() -> new EntityNotFoundException("해당하는 게시글이 없습니다."));
         postJpaRepository.delete(post);
     }
 
-    private Category getCategoryByPost(Post post)
-        {
-            return categoryService.getByCategoryId(post.getCategoryId());
+    private Category getCategoryByPost(Post post) {
+        return categoryService.getByCategoryId(post.getCategoryId());
     }
 }

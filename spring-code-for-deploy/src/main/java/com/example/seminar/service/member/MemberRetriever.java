@@ -17,7 +17,7 @@ public class MemberRetriever {
         this.memberJpaRepository = memberJpaRepository;
     }
 
-    public Member findById(Long id) {
+    public Member findById(final long id) {
         return memberJpaRepository
                 .findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("해당하는 회원이 없습니다."));

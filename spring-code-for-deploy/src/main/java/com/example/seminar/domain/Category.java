@@ -19,19 +19,21 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED)
 public class Category {
 
+    private final int MAX_TITLE_LENGTH = 10;
+
     @Id @GeneratedValue(strategy = IDENTITY)
     private Integer id;
 
-    private String content;
+    private String title;
 
     @Builder
-    private Category(String content) {
-        validateContent(content);
-        this.content = content;
+    private Category(String title) {
+        validateContent(title);
+        this.title = title;
     }
 
-    private void validateContent(final String content) {
-        if (content.length() > 10) {
+    private void validateContent(final String title) {
+        if (title.length() > MAX_TITLE_LENGTH) {
             throw new CategoryException("카테고리 글자 제한을 넘었습니다.");
         }
     }

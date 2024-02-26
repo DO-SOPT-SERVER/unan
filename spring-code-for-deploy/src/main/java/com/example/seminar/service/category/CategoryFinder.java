@@ -1,5 +1,6 @@
 package com.example.seminar.service.category;
 
+import com.example.seminar.common.exception.CategoryException;
 import com.example.seminar.domain.Category;
 import com.example.seminar.repository.CategoryJpaRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +14,8 @@ public class CategoryFinder {
 
     private final CategoryJpaRepository categoryJpaRepository;
 
-    public Category findById(Short id) {
+    public Category findById(int id) {
         return categoryJpaRepository.findById(id)
-                .orElseThrow( () -> new CatalogException("존재하지 않는 카테고리입니다."));
+                .orElseThrow( () -> new CategoryException("존재하지 않는 카테고리입니다."));
     }
 }

@@ -1,18 +1,18 @@
 package com.example.seminar.dto.response.category;
 
 import com.example.seminar.domain.Category;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
 
-@Data
-public class CategoryResponse {
-    private String content;
+import static lombok.AccessLevel.PRIVATE;
 
-    public CategoryResponse(String content) {
-        this.content = content;
-    }
+@Builder(access = PRIVATE)
+public record CategoryResponse(
+        String title
+){
 
     public static CategoryResponse of(Category category) {
-        return new CategoryResponse(category.getContent());
+        return CategoryResponse.builder()
+                .title(category.getTitle())
+                .build();
     }
 }
