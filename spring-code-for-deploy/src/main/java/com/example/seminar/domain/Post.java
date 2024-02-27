@@ -1,6 +1,7 @@
 package com.example.seminar.domain;
 
 
+import com.example.seminar.common.exception.PostException;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,9 +31,16 @@ public class Post extends BaseTimeEntity {
 
     @Builder
     public Post(String title, String content, Member member) {
+        validateTitle(title);
         this.title = title;
         this.content = content;
         this.member = member;
+    }
+
+    private void validateTitle(String title) {
+        if (title.length() > 50) {
+            throw new PostException("제목은 50자 이하여야 합니다.");
+        }
     }
 
     public void updateContent(final String content) {

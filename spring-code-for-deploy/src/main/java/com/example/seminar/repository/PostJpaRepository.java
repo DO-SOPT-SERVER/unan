@@ -10,5 +10,6 @@ public interface PostJpaRepository extends JpaRepository<Post, Long> {
 
     List<Post> findAllByMemberId(Long memberId);
     List<Post> findAllByMember(Member member);
+    List<Post> findAllByMemberNameIn(List<String> memberName);
 
 }

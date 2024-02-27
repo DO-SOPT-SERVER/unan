@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,7 @@ public class Member extends BaseTimeEntity {
                    SOPT sopt) {
         validateAge(age);
         validateName(name);
+        validateNickname(nickname);
         this.name = name;
         this.nickname = nickname;
         this.age = age;
@@ -54,10 +56,21 @@ public class Member extends BaseTimeEntity {
         }
     }
 
+    // SOPT는 한국인만 가입 가능함.
     private void validateName(final String name) {
+//        if (!name.matches("ㅎ가-힣")) {
+//            throw new MemberException("한글만 가능합니다.");
+//        }
        if (name.length() > MAX_LENGTH) {
             throw new MemberException("유저의 이름은 12자를 넘을 수 없습니다.");
        }
+    }
+
+    private void validateNickname(final String nickname) {
+
+        if (nickname.length() > 8) {
+            throw new MemberException("유저의 닉네임은 8자를 넘길 수 없습니다.");
+        }
     }
 
     public void updateSOPT(SOPT sopt) {

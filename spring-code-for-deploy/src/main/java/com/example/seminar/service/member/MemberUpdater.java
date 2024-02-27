@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class MemberUpdater {
-    private final MemberJpaRepository memberJpaRepository;
 
     public void updateSopt(Member member, SOPT sopt) {
         member.updateSOPT(sopt);
