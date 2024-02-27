@@ -1,6 +1,5 @@
 package com.example.seminar.dto.response.post;
 
-import com.example.seminar.domain.Category;
 import com.example.seminar.domain.Post;
 import lombok.Builder;
 
