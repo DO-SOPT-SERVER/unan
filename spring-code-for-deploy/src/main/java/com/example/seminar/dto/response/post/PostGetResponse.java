@@ -14,13 +14,11 @@ public record PostGetResponse(
         String categoryTitle
 ) {
     public static PostGetResponse of(
-            Post post,
-            Category category) {
+            Post post) {
         return PostGetResponse.builder()
                 .id(post.getId())
                 .title(post.getTitle())
                 .content(post.getContent())
-                .categoryTitle(category.getTitle())
                 .build();
     }
 }
