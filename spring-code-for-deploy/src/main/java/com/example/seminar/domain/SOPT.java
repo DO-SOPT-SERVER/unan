@@ -25,4 +25,9 @@ public class SOPT {
         this.generation = CURRENT_GENERATION;
         this.part = part;
     }
+
+    public void updateSopt(SOPT sopt) {
+        this.part = sopt.getPart();
+        this.generation = sopt.getGeneration();
+    }
 }
