@@ -35,7 +35,7 @@ public class PostService {
     @Transactional
     public void editContent(final Long postId, final PostUpdateRequest request) {
         Post post = postRetriever.findById(postId);
-        postEditor.editContent(post, request.content());
+        postEditor.editContent(postId, request.content());
     }
 
     @Transactional

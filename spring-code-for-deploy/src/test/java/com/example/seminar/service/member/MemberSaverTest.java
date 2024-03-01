@@ -1,5 +1,9 @@
 package com.example.seminar.service.member;
 
+import com.example.seminar.domain.Member;
+import com.example.seminar.domain.Part;
+import com.example.seminar.domain.SOPT;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +22,28 @@ public class MemberSaverTest {
     @Test
     @DisplayName("SOPT 회원을 등록할 수 있다.")
     void register() {
-        StopWatch stopWatch = new StopWatch();
+        // given
+        Member newMember = createMember("오해영");
+
+        // when
+        Member registeredMember = memberRegister.register(newMember);
+
+        // then
+        Assertions.assertThat(registeredMember)
+                .extracting("age", "name", "sopt", "nickname")
+                .containsExactly(99, "오해영", newMember.getSopt(), "5hae0");
     }
 
-    @Test
-    @DisplayName("새롭게 등록한 SOPT 회원은 현재 기수이다.")
-    void checkIsCurrentGeneration() {
-
-        // set up
-        // 생성
-
-        // 조회
-
+    private Member createMember(String name) {
+        SOPT sopt = SOPT.builder()
+                .part(Part.SERVER)
+                .build();
+        return Member.builder()
+                .age(99)
+                .name(name)
+                .sopt(sopt)
+                .nickname("5hae0")
+                .build();
     }
+
 }

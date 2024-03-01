@@ -58,9 +58,10 @@ public class Member extends BaseTimeEntity {
 
     // SOPT는 한국인만 가입 가능함.
     private void validateName(final String name) {
-//        if (!name.matches("ㅎ가-힣")) {
-//            throw new MemberException("한글만 가능합니다.");
-//        }
+        if (!name.matches("^[가-힣]*$")) {
+            throw new MemberException("한글만 가능합니다.");
+        }
+
        if (name.length() > MAX_LENGTH) {
             throw new MemberException("유저의 이름은 12자를 넘을 수 없습니다.");
        }
@@ -74,6 +75,6 @@ public class Member extends BaseTimeEntity {
     }
 
     public void updateSOPT(SOPT sopt) {
-        this.sopt = sopt;
+        this.sopt.updateSopt(sopt);
     }
 }

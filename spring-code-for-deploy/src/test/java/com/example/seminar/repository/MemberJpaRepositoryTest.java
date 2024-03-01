@@ -1,5 +1,6 @@
 package com.example.seminar.repository;
 
+import com.example.seminar.common.exception.MemberException;
 import com.example.seminar.domain.Member;
 import com.example.seminar.domain.Part;
 import com.example.seminar.domain.SOPT;
@@ -44,9 +45,13 @@ public class MemberJpaRepositoryTest {
 
     }
 
+
+
     @Test
     @DisplayName("사용자 id를 입력하면 회원을 조회할 수 있다. 존재하지 않는 사용자는 조회할 수 없다.")
     void findByIdOrThrow() {
+        Long NOT_REGISTERED_ID = -1L;
+
         SOPT sopt = SOPT.builder()
                 .part(Part.SERVER)
                 .build();
@@ -64,6 +69,13 @@ public class MemberJpaRepositoryTest {
         Assertions.assertThat(findMember)
                 .extracting("id", "age", "name", "sopt", "nickname")
                 .containsExactly(savedMember.getId(), 99, "오해영", sopt, "5hae0");
+
+        Assertions.assertThatThrownBy(
+                () -> {
+                    memberJpaRepository.findByIdOrThrow(NOT_REGISTERED_ID);
+                }
+        ).isInstanceOf(MemberException.class)
+        .hasMessage("존재하지 않는 회원입니다.");
     }
 
 }
