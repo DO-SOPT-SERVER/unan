@@ -44,6 +44,10 @@ public class MemberJpaRepositoryTest {
 
     }
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     @Test
     @DisplayName("사용자 id를 입력하면 회원을 조회할 수 있다. 존재하지 않는 사용자는 조회할 수 없다.")
     void findByIdOrThrow() {

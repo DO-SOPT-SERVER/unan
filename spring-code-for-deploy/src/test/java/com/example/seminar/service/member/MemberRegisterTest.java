@@ -10,7 +10,7 @@ import org.springframework.util.StopWatch;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class MemberSaverTest {
+public class MemberRegisterTest {
 
     @Autowired
     private MemberRegister memberRegister;

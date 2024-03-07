@@ -12,6 +12,6 @@ public class MemberRemover {
     private final MemberRepository memberRepository;
 
     public void remove(Member member) {
-        memberRepository.remove(member);
+        member.remove();
     }
 }
