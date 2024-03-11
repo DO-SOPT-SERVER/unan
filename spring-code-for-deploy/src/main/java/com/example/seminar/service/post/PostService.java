@@ -8,6 +8,7 @@ import com.example.seminar.dto.request.post.PostUpdateRequest;
 import com.example.seminar.service.member.MemberRetriever;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -40,6 +41,7 @@ public class PostService {
 
     @Transactional
     public void deleteById(final Long postId) {
+        PlatformTransactionManager transactionManager;
         Post post = postRetriever.findById(postId);
         postRemover.remove(post);
     }

@@ -31,6 +31,11 @@ public class MemberController {
         return ResponseEntity.ok(memberService.getMembers());
     }
 
+    @GetMapping("/{memberId}")
+    public ResponseEntity<MemberGetResponse> getMemberProfile(@PathVariable Long memberId) {
+        return ResponseEntity.ok(memberService.getMemberById(memberId));
+    }
+
     @PatchMapping("/{memberId}")
     public ResponseEntity<Void> updateMemberSoptInfo(@PathVariable Long memberId, @RequestBody MemberProfileUpdateRequest request) {
         memberService.updateSOPT(memberId, request);

@@ -56,4 +56,52 @@ public class MemberTest {
 //                .hasMessage("한글만 가능합니다.")
 //        ;
 //    }
+
+    @Test
+    @DisplayName("유저를 삭제한다.")
+    void remove() {
+        // given
+        SOPT sopt = SOPT.builder()
+                .part(Part.SERVER)
+                .build();
+
+        Member member = Member.builder()
+                .age(99)
+                .name("오해영")
+                .sopt(sopt)
+                .nickname("5hae0")
+                .build();
+
+        // when
+        member.remove();
+
+        // then
+        Assertions.assertThat(member.isDeleted()).isTrue();
+    }
+
+    @Test
+    @DisplayName("SOPT 정보를 수정할 수 있다.")
+    void updateSOPT() {
+        // given
+        SOPT sopt = SOPT.builder()
+                .part(Part.SERVER)
+                .build();
+
+        Member member = Member.builder()
+                .age(99)
+                .name("오해영")
+                .sopt(sopt)
+                .nickname("5hae0")
+                .build();
+
+        // when
+         member.updateSOPT(SOPT.builder()
+                .part(Part.DESIGN)
+                .build());
+
+        // then
+        Assertions.assertThat(member.getSopt()).extracting("generation", "part")
+                .containsExactly((short) 34, Part.DESIGN);
+
+    }
 }

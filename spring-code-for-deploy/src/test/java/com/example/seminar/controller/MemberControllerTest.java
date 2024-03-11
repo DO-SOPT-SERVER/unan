@@ -1,5 +1,6 @@
 package com.example.seminar.controller;
 
+import com.example.seminar.domain.Member;
 import com.example.seminar.domain.Part;
 import com.example.seminar.domain.SOPT;
 import com.example.seminar.dto.request.member.MemberCreateRequest;
@@ -28,7 +29,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @WebMvcTest(controllers = MemberController.class)
-@ActiveProfiles("test")
 public class MemberControllerTest extends ControllerTestManager {
 
     @MockBean
@@ -61,7 +61,39 @@ public class MemberControllerTest extends ControllerTestManager {
     }
 
     @Test
+    @DisplayName("특정 회원 정보를 조회한다.")
+    void test() throws Exception {
+      // given
+        Member member = Member.builder()
+                        .age(28)
+                        .name("오해영")
+                        .nickname("5hae0")
+                        .sopt(
+                                SOPT.builder()
+                                        .part(Part.DESIGN)
+                                        .build()
+                        ).build();
+
+        BDDMockito.given(memberService.getMemberById(1L))
+                .willReturn(MemberGetResponse.of(member));
+
+      // when
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/member/1"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("name").value("오해영"))
+                .andExpect(MockMvcResultMatchers.jsonPath("age").value(28))
+                .andExpect(MockMvcResultMatchers.jsonPath("nickname").value("5hae0"))
+                .andExpect(MockMvcResultMatchers.jsonPath("soptInfo.part").value("DESIGN"))
+                .andExpect(MockMvcResultMatchers.jsonPath("soptInfo.generation").value(34));
+
+      // then
+
+    }
+
+    @Test
     @DisplayName("회원 정보 목록을 조회한다.")
+
     void getMembersProfile() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/member"))
                 .andDo(MockMvcResultHandlers.print())

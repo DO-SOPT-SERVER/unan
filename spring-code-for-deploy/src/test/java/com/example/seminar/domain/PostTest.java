@@ -1,14 +1,16 @@
 package com.example.seminar.domain;
 
 
+import com.example.seminar.common.exception.PostException;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
 @DataJpaTest
 @ActiveProfiles("test")
 public class PostTest {
-<<<<<<< Updated upstream
-=======
 
     @Test
     @DisplayName("제목이 50자를 넘으면, 게시글을 생성할 수 없다.")
@@ -43,5 +45,4 @@ public class PostTest {
                 .build();
     }
 
->>>>>>> Stashed changes
 }

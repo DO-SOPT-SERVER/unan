@@ -1,10 +1,12 @@
 package com.example.seminar.controller;
 
 import com.example.seminar.dto.request.post.PostCreateRequest;
+import com.example.seminar.dto.request.post.PostUpdateRequest;
 import com.example.seminar.service.post.PostService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -19,7 +21,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @WebMvcTest(controllers = PostController.class)
-@ActiveProfiles("test")
 public class PostControllerTest extends ControllerTestManager {
 
     private static final String POST_API_ENDPOINT = "/api/posts";
@@ -50,5 +51,22 @@ public class PostControllerTest extends ControllerTestManager {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.header().string("Location", "/api/posts/1"));
+    }
+
+    @Test
+    @DisplayName("게시글을 수정할 수 있다.")
+    void updatePost() throws Exception {
+        // given
+        PostUpdateRequest request = new PostUpdateRequest(
+                "내용"
+        );
+
+        // when then
+        mockMvc.perform(
+                        MockMvcRequestBuilders.patch(POST_API_ENDPOINT + "/1")
+                                .content(objectMapper.writeValueAsString(request))
+                                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
     }
 }
